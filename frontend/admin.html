@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Admin Dashboard | Field Explorer Ltd</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --red: #E0141C;
+            --rd: #B01018;
+            --black: #FFFFFF;
+            --s: #111;
+            --s2: #161616;
+            --ow: #F5F2EC;
+            --g: #9A9490;
+            --b: rgba(0, 0, 0, 0.10);
+            --green: #2ECC71;
+            --amber: #F39C12;
+            --blue: #3498DB;
+            --H: 'Bebas Neue', 'Impact', sans-serif;
+            --B: 'DM Sans', 'Segoe UI', Arial, sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            font-family: var(--B);
+            background: #F5F5F5;
+            color: #000;
+            display: flex;
+            flex-direction: column
+        }
+
+        /* TOP BAR */
+        .topbar {
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--b);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0
+        }
+
+        .tb-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .tb-logo svg {
+            width: 28px;
+            height: 28px
+        }
+
+        .tb-name {
+            font-family: var(--H);
+            font-size: 16px;
+            letter-spacing: 2px
+        }
+
+        .tb-name span {
+            color: var(--red)
+        }
+
+        .tb-badge {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(182, 0, 21, .15);
+            color: var(--red);
+            border: 1px solid rgba(224, 20, 28, 0.25);
+            padding: 3px 10px;
+            margin-left: 10px
+        }
+
+        .tb-right {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .tb-date {
+            font-size: 12px;
+            color: #333
+        }
+
+        .tb-visite {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--red);
+            color: #fff;
+            padding: 8px 18px;
+            display: inline-block;
+            transition: background .2s
+        }
+
+        .tb-visite:hover {
+            background: var(--rd)
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        /* LAYOUT */
+        .layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            background: #FFFFFF;
+            border-right: 1px solid var(--b);
+            flex-shrink: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column
+        }
+
+        .sb-section {
+            padding: 8px 0 4px;
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, .4);
+            padding-left: 20px;
+            margin-top: 8px
+        }
+
+        .sb-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 20px;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            transition: all .2s;
+            border-left: 2px solid transparent
+        }
+
+        .sb-item:hover {
+            color: #000;
+            background: rgba(0, 0, 0, .04)
+        }
+
+        .sb-item.on {
+            color: #000;
+            background: rgba(182, 0, 21, .08);
+            border-left-color: var(--red)
+        }
+
+        .sb-ico {
+            font-size: 15px;
+            width: 20px;
+            text-align: center
+        }
+
+        .sb-badge {
+            margin-left: auto;
+            font-size: 10px;
+            background: var(--red);
+            color: #fff;
+            padding: 2px 7px;
+            border-radius: 10px
+        }
+
+        .sb-badge.g {
+            background: rgba(46, 204, 113, .2);
+            color: var(--green)
+        }
+
+        .sb-bottom {
+            margin-top: auto;
+            padding: 16px 20px;
+            border-top: 1px solid var(--b)
+        }
+
+        .sb-logout {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            transition: color .2s
+        }
+
+        .sb-logout:hover {
+            color: var(--red)
+        }
+
+        /* MAIN */
+        .main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 32px
+        }
+
+        /* PAGE HEADER */
+        .pg-hd {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .pg-title {
+            font-family: var(--H);
+            font-size: 32px;
+            letter-spacing: 1px
+        }
+
+        .pg-sub {
+            font-size: 13px;
+            color: #333;
+            margin-top: 3px
+        }
+
+        .pg-actions {
+            display: flex;
+            gap: 10px
+        }
+
+        .btn-sm {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 9px 20px;
+            cursor: pointer;
+            font-family: var(--B);
+            transition: all .2s;
+            border: none
+        }
+
+        .btn-red {
+            background: var(--red);
+            color: #fff
+        }
+
+        .btn-red:hover {
+            background: var(--rd)
+        }
+
+        .btn-out {
+            background: transparent;
+            color: #333;
+            border: 1px solid var(--b)
+        }
+
+        .btn-out:hover {
+            border-color: #333;
+            color: #000
+        }
+
+        /* STAT CARDS */
+        .stats4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px
+        }
+
+        .scard {
+            background: #FFFFFF;
+            border: 1px solid var(--b);
+            padding: 22px 24px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .2s
+        }
+
+        .scard:hover {
+            border-color: #E0141C .3;
+        }
+
+        .sc-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #333;
+            margin-bottom: 12px
+        }
+
+        .sc-val {
+            font-family: var(--H);
+            font-size: 38px;
+            line-height: 1;
+            margin-bottom: 4px
+        }
+
+        .sc-change {
+            font-size: 12px;
+            color: var(--green)
+        }
+
+        .sc-ico {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            font-size: 22px;
+            opacity: .15
+        }
+
+        /* PANELS */
+        .panels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px
+        }
+
+        .panel {
+            background: #FFFFFF;
+            border: 1px solid var(--b);
+            padding: 22px
+        }
+
+        .panel-hd {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+        }
+
+        .panel-title {
+            font-family: var(--H);
+            font-size: 18px;
+            letter-spacing: 1px
+        }
+
+        .panel-link {
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--red)
+        }
+
+        .panel-link:hover {
+            text-decoration: underline
+        }
+
+        /* PROJECT ROWS */
+        .prow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+        }
+
+        .prow:last-child {
+            border-bottom: none
+        }
+
+        .prow-num {
+            font-size: 11px;
+            color: rgba(0, 0, 0, .4);
+            width: 24px;
+            flex-shrink: 0;
+            font-family: monospace
+        }
+
+        .prow-info {
+            flex: 1
+        }
+
+        .prow-name {
+            font-size: 13px;
+            font-weight: 500
+        }
+
+        .prow-loc {
+            font-size: 11px;
+            color: #333;
+            margin-top: 2px
+        }
+
+        .prow-status {
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 9px
+        }
+
+        .prow-status.done {
+            background: rgba(46, 204, 113, .12);
+            color: var(--green);
+            border: 1px solid rgba(46, 204, 113, .2)
+        }
+
+        .prow-status.wip {
+            background: rgba(243, 156, 18, .12);
+            color: var(--amber);
+            border: 1px solid rgba(243, 156, 18, .2)
+        }
+
+        /* MESSAGES */
+        .msgrow {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--b);
+            cursor: pointer;
+            transition: background .15s
+        }
+
+        .msgrow:last-child {
+            border-bottom: none
+        }
+
+        .msgrow:hover {
+            background: rgba(0, 0, 0, .03);
+            margin: 0 -22px;
+            padding: 12px 22px
+        }
+
+        .msg-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px
+        }
+
+        .msg-from {
+            font-size: 13px;
+            font-weight: 500
+        }
+
+        .msg-time {
+            font-size: 11px;
+            color: #333
+        }
+
+        .msg-subj {
+            font-size: 13px;
+            color: #333
+        }
+
+        .msg-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--red);
+            flex-shrink: 0;
+            margin-top: 4px
+        }
+
+        /* ACTIVITY */
+        .actrow {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+        }
+
+        .actrow:last-child {
+            border-bottom: none
+        }
+
+        .act-ico {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0
+        }
+
+        .act-txt {
+            flex: 1;
+            font-size: 13px;
+            line-height: 1.5
+        }
+
+        .act-txt span {
+            color: #000;
+            font-weight: 500
+        }
+
+        .act-time {
+            font-size: 11px;
+            color: #333;
+            margin-top: 3px
+        }
+
+        /* QUICK LINKS */
+        .qlinks {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px
+        }
+
+        .qlink {
+            background: #FFFFFF;
+            border: 1px solid var(--b);
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .qlink:hover {
+            border: 2px solid #E0141C .05;
+        }
+
+        .qlink-ico {
+            font-size: 20px;
+            width: 36px;
+            height: 36px;
+            background: rgba(182, 0, 21, .1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .qlink-label {
+            font-size: 12px;
+            font-weight: 500
+        }
+
+        .qlink-sub {
+            font-size: 11px;
+            color: #333;
+            margin-top: 2px
+        }
+
+        /* PROGRESS BARS */
+        .prog-item {
+            margin-bottom: 16px
+        }
+
+        .prog-hd {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 6px
+        }
+
+        .prog-pct {
+            font-size: 12px;
+            color: #333
+        }
+
+        .prog-bar {
+            height: 4px;
+            background: rgba(0, 0, 0, .10);
+            border-radius: 2px
+        }
+
+        .prog-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: var(--red);
+            transition: width 1s ease
+        }
+
+        /* SECTION TAB */
+        .sec {
+            display: none
+        }
+
+        .sec.on {
+            display: block
+        }
+
+        /* TEAM TABLE */
+        .team-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px
+        }
+
+        .team-table th {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #333;
+            text-align: left;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--b);
+            font-weight: 400
+        }
+
+        .team-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--b);
+            font-size: 13px
+        }
+
+        .team-table tr:last-child td {
+            border-bottom: none
+        }
+
+        .team-table tr:hover td {
+            background: rgba(0, 0, 0, .03)
+        }
+
+        .tpill {
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            background: rgba(52, 152, 219, .12);
+            color: var(--blue);
+            border: 1px solid rgba(52, 152, 219, .2)
+        }
+
+        @media(max-width:900px) {
+            .sidebar {
+                display: none
+            }
+
+            .stats4 {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .panels {
+                grid-template-columns: 1fr
+            }
+
+            .qlinks {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .main {
+                padding: 20px 16px
+            }
+        }
+
+        @media(max-width:500px) {
+            .stats4 {
+                grid-template-columns: 1fr
+            }
+
+            .qlinks {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="tb-logo">
+            <svg viewBox="0 0 100 100" fill="none">
+                <rect x="18" y="12" width="62" height="13" rx="2" fill="#E0141C" transform="rotate(-20 18 12)" />
+                <rect x="4" y="38" width="9" height="50" rx="2" fill="#E0141C" transform="rotate(-20 4 38)" />
+                <rect x="22" y="47" width="40" height="11" rx="2" fill="#E0141C" transform="rotate(-20 22 47)" />
+                <rect x="56" y="55" width="36" height="11" rx="2" fill="#E0141C" transform="rotate(-20 56 55)" />
+            </svg>
+            <div class="tb-name">FIELD <span>EXPLORER</span></div>
+            <div class="tb-badge">Admin Panel</div>
+        </div>
+        <div class="tb-right">
+            <span class="tb-date" id="tdate"></span>
+            <a href="index.html" class="tb-visite" target="_blank">← View Website</a>
+        </div>
+    </div>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sb-section">Overview</div>
+            <div class="sb-item on" onclick="show('dashboard',this)"><span class="sb-ico">⬛</span> Dashboard</div>
+            <div class="sb-item" onclick="show('projects',this)"><span class="sb-ico">🏗️</span> Projects<span
+                    class="sb-badge">25</span></div>
+            <div class="sb-item" onclick="show('messages',this)"><span class="sb-ico">✉️</span> Messages<span
+                    class="sb-badge">4</span></div>
+
+            <div class="sb-section">Manage</div>
+            <div class="sb-item" onclick="show('team',this)"><span class="sb-ico">👷</span> Team</div>
+            <div class="sb-item" onclick="show('services',this)"><span class="sb-ico">🔧</span> Services</div>
+
+            <div class="sb-section">Status</div>
+            <div class="sb-item" onclick="filterProj('done')"><span class="sb-ico" style="color:#2ECC71">●</span>
+                Completed<span class="sb-badge g">19</span></div>
+            <div class="sb-item" onclick="filterProj('wip')"><span class="sb-ico" style="color:#F39C12">●</span>
+                Ongoing<span class="sb-badge" style="background:rgba(243,156,18,.2);color:#F39C12">6</span></div>
+
+            <div class="sb-section">Quick Links</div>
+            <div class="sb-item" onclick="window.open('index.html','_blank')"><span class="sb-ico">🏠</span> Home Page
+            </div>
+            <div class="sb-item" onclick="window.open('contact.html','_blank')"><span class="sb-ico">📞</span> Contact
+                Page</div>
+            <div class="sb-item" onclick="window.open('projects.html','_blank')"><span class="sb-ico">📂</span> Projects
+                Page</div>
+
+            <div class="sb-bottom">
+                <div class="sb-logout" onclick="alert('Logged out!')"><span>🚪</span> Log Out</div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main">
+
+            <!-- ── DASHBOARD ── -->
+            <div class="sec on" id="sec-dashboard">
+                <div class="pg-hd">
+                    <div>
+                        <div class="pg-title">DASHBOARD</div>
+                        <div class="pg-sub">Welcome back, Engr. Adeniyi — here's your overview</div>
+                    </div>
+                    <div class="pg-actions">
+                        <button class="btn-sm btn-out"
+                            onclick="show('projects',document.querySelector('.sb-item:nth-child(3)'))">+ Add
+                            Project</button>
+                        <button class="btn-sm btn-red"
+                            onclick="show('messages',document.querySelector('.sb-item:nth-child(4)'))">View
+                            Messages</button>
+                    </div>
+                </div>
+
+                <!-- STATS -->
+                <div class="stats4">
+                    <div class="scard">
+                        <div class="sc-ico">🏗️</div>
+                        <div class="sc-label">Total Projects</div>
+                        <div class="sc-val">25+</div>
+                        <div class="sc-change">↑ 2 this quarter</div>
+                    </div>
+                    <div class="scard">
+                        <div class="sc-ico">✓</div>
+                        <div class="sc-label">Completed</div>
+                        <div class="sc-val" style="color:#2ECC71">19</div>
+                        <div class="sc-change" style="color:#2ECC71">76% completion rate</div>
+                    </div>
+                    <div class="scard">
+                        <div class="sc-ico">⏳</div>
+                        <div class="sc-label">Ongoing</div>
+                        <div class="sc-val" style="color:#F39C12">6</div>
+                        <div class="sc-change" style="color:#F39C12">Active sites</div>
+                    </div>
+                    <div class="scard">
+                        <div class="sc-ico">✉️</div>
+                        <div class="sc-label">New Messages</div>
+                        <div class="sc-val" style="color:var(--red)">4</div>
+                        <div class="sc-change" style="color:var(--red)">Needs response</div>
+                    </div>
+                </div>
+
+                <!-- QUICK LINKS -->
+                <div class="qlinks">
+                    <div class="qlink" onclick="window.open('index.html','_blank')">
+                        <div class="qlink-ico">🏠</div>
+                        <div>
+                            <div class="qlink-label">Home Page</div>
+                            <div class="qlink-sub">View live site</div>
+                        </div>
+                    </div>
+                    <div class="qlink" onclick="window.open('projects.html','_blank')">
+                        <div class="qlink-ico">🏗️</div>
+                        <div>
+                            <div class="qlink-label">Projects Page</div>
+                            <div class="qlink-sub">All 25+ projects</div>
+                        </div>
+                    </div>
+                    <div class="qlink" onclick="window.open('team.html','_blank')">
+                        <div class="qlink-ico">👷</div>
+                        <div>
+                            <div class="qlink-label">Team Page</div>
+                            <div class="qlink-sub">7 team members</div>
+                        </div>
+                    </div>
+                    <div class="qlink" onclick="window.open('contact.html','_blank')">
+                        <div class="qlink-ico">📞</div>
+                        <div>
+                            <div class="qlink-label">Contact Page</div>
+                            <div class="qlink-sub">Enquiry form</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANELS ROW 1 -->
+                <div class="panels">
+                    <!-- Recent Projects -->
+                    <div class="panel">
+                        <div class="panel-hd">
+                            <div class="panel-title">RECENT PROJECTS</div><a onclick="show('projects',null)"
+                                class="panel-link" style="cursor:pointer">View All →</a>
+                        </div>
+                        <div class="prow">
+                            <div class="prow-num">01</div>
+                            <div class="prow-info">
+                                <div class="prow-name">28-Unit Mixed Apartment</div>
+                                <div class="prow-loc">Ibese, Ikorodu, Lagos</div>
+                            </div><span class="prow-status wip">Ongoing</span>
+                        </div>
+                        <div class="prow">
+                            <div class="prow-num">02</div>
+                            <div class="prow-info">
+                                <div class="prow-name">7 Units 5+4-Bed Duplexes</div>
+                                <div class="prow-loc">Alaka Estate, Surulere</div>
+                            </div><span class="prow-status wip">Ongoing</span>
+                        </div>
+                        <div class="prow">
+                            <div class="prow-num">03</div>
+                            <div class="prow-info">
+                                <div class="prow-name">3 Units 4-Bed Duplexes</div>
+                                <div class="prow-loc">Doyin Omololu St, Alapere</div>
+                            </div><span class="prow-status wip">Ongoing</span>
+                        </div>
+                        <div class="prow">
+                            <div class="prow-num">04</div>
+                            <div class="prow-info">
+                                <div class="prow-name">8+4 Mixed Apartment Units</div>
+                                <div class="prow-loc">Ladejobi Street, Alapere</div>
+                            </div><span class="prow-status wip">Ongoing</span>
+                        </div>
+                        <div class="prow">
+                            <div class="prow-num">05</div>
+                            <div class="prow-info">
+                                <div class="prow-name">4-Bed Duplex + Office</div>
+                                <div class="prow-loc">Mafowoku St, Alapere Ketu</div>
+                            </div><span class="prow-status done">Completed</span>
+                        </div>
+                    </div>
+                    <!-- Messages -->
+                    <div class="panel">
+                        <div class="panel-hd">
+                            <div class="panel-title">NEW MESSAGES</div><a onclick="show('messages',null)"
+                                class="panel-link" style="cursor:pointer">View All →</a>
+                        </div>
+                        <div class="msgrow">
+                            <div class="msg-top">
+                                <div style="display:flex;align-items:center;gap:8px">
+                                    <div class="msg-dot"></div>
+                                    <div class="msg-from">Kunle Adeyemi</div>
+                                </div>
+                                <div class="msg-time">2h ago</div>
+                            </div>
+                            <div class="msg-subj">Enquiry about 4-bedroom duplex construction in Lekki</div>
+                        </div>
+                        <div class="msgrow">
+                            <div class="msg-top">
+                                <div style="display:flex;align-items:center;gap:8px">
+                                    <div class="msg-dot"></div>
+                                    <div class="msg-from">Mrs. Fatima Bello</div>
+                                </div>
+                                <div class="msg-time">5h ago</div>
+                            </div>
+                            <div class="msg-subj">Request for architectural design quote</div>
+                        </div>
+                        <div class="msgrow">
+                            <div class="msg-top">
+                                <div style="display:flex;align-items:center;gap:8px">
+                                    <div class="msg-dot"></div>
+                                    <div class="msg-from">Chukwudi Obi</div>
+                                </div>
+                                <div class="msg-time">1d ago</div>
+                            </div>
+                            <div class="msg-subj">Renovation project – 3-storey building in Surulere</div>
+                        </div>
+                        <div class="msgrow">
+                            <div class="msg-top">
+                                <div style="display:flex;align-items:center;gap:8px">
+                                    <div class="msg-dot" style="background:var(--g)"></div>
+                                    <div class="msg-from">Tunde Fashola</div>
+                                </div>
+                                <div class="msg-time">2d ago</div>
+                            </div>
+                            <div class="msg-subj">Property management services enquiry</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANELS ROW 2 -->
+                <div class="panels">
+                    <!-- Project Progress -->
+                    <div class="panel">
+                        <div class="panel-hd">
+                            <div class="panel-title">PROJECT PROGRESS</div>
+                        </div>
+                        <div class="prog-item">
+                            <div class="prog-hd"><span>28-Unit Mixed Apartment — Ibese</span><span
+                                    class="prog-pct">65%</span></div>
+                            <div class="prog-bar">
+                                <div class="prog-fill" style="width:65%"></div>
+                            </div>
+                        </div>
+                        <div class="prog-item">
+                            <div class="prog-hd"><span>7 Units 5+4-Bed Duplexes — Surulere</span><span
+                                    class="prog-pct">40%</span></div>
+                            <div class="prog-bar">
+                                <div class="prog-fill" style="width:40%"></div>
+                            </div>
+                        </div>
+                        <div class="prog-item">
+                            <div class="prog-hd"><span>6-Bedroom Duplex — Ikorodu</span><span
+                                    class="prog-pct">80%</span></div>
+                            <div class="prog-bar">
+                                <div class="prog-fill" style="width:80%"></div>
+                            </div>
+                        </div>
+                        <div class="prog-item">
+                            <div class="prog-hd"><span>5 Units 2-Bedroom — Ogudu</span><span class="prog-pct">55%</span>
+                            </div>
+                            <div class="prog-bar">
+                                <div class="prog-fill" style="width:55%"></div>
+                            </div>
+                        </div>
+                        <div class="prog-item">
+                            <div class="prog-hd"><span>8+4 Mixed Units — Alapere Ketu</span><span
+                                    class="prog-pct">30%</span></div>
+                            <div class="prog-bar">
+                                <div class="prog-fill" style="width:30%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Recent Activity -->
+                    <div class="panel">
+                        <div class="panel-hd">
+                            <div class="panel-title">RECENT ACTIVITY</div>
+                        </div>
+                        <div class="actrow">
+                            <div class="act-ico" style="background:rgba(46,204,113,.12);color:#2ECC71">✓</div>
+                            <div>
+                                <div class="act-txt"><span>4-Bed Duplex + Office</span> marked as completed</div>
+                                <div class="act-time">Today, 9:14 AM</div>
+                            </div>
+                        </div>
+                        <div class="actrow">
+                            <div class="act-ico" style="background:rgba(182,0,21,.12);color:var(--red)">✉</div>
+                            <div>
+                                <div class="act-txt">New message from <span>Kunle Adeyemi</span></div>
+                                <div class="act-time">Today, 8:02 AM</div>
+                            </div>
+                        </div>
+                        <div class="actrow">
+                            <div class="act-ico" style="background:rgba(52,152,219,.12);color:var(--blue)">📸</div>
+                            <div>
+                                <div class="act-txt">Site photos uploaded for <span>28-Unit Apartment</span></div>
+                                <div class="act-time">Yesterday, 4:30 PM</div>
+                            </div>
+                        </div>
+                        <div class="actrow">
+                            <div class="act-ico" style="background:rgba(243,156,18,.12);color:#F39C12">⏳</div>
+                            <div>
+                                <div class="act-txt"><span>3 Units 4-Bed Duplexes</span> progress updated to 30%</div>
+                                <div class="act-time">Yesterday, 2:00 PM</div>
+                            </div>
+                        </div>
+                        <div class="actrow">
+                            <div class="act-ico" style="background:rgba(46,204,113,.12);color:#2ECC71">👤</div>
+                            <div>
+                                <div class="act-txt">Team page updated — <span>Ige Damilola</span> profile added</div>
+                                <div class="act-time">2 days ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── PROJECTS ── -->
+            <div class="sec" id="sec-projects">
+                <div class="pg-hd">
+                    <div>
+                        <div class="pg-title">ALL PROJECTS</div>
+                        <div class="pg-sub">25+ projects across Lagos and Ogun State</div>
+                    </div>
+                    <div class="pg-actions">
+                        <button class="btn-sm btn-out" onclick="filterProjAdmin('all')">All</button>
+                        <button class="btn-sm btn-out" onclick="filterProjAdmin('done')">Completed</button>
+                        <button class="btn-sm btn-out" onclick="filterProjAdmin('wip')">Ongoing</button>
+                    </div>
+                </div>
+                <div class="panel">
+                    <table class="team-table" id="proj-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Project Name</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="proj-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ── MESSAGES ── -->
+            <div class="sec" id="sec-messages">
+                <div class="pg-hd">
+                    <div>
+                        <div class="pg-title">MESSAGES</div>
+                        <div class="pg-sub">Enquiries received via the contact form</div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="msgrow" style="padding:16px 0">
+                        <div class="msg-top">
+                            <div style="display:flex;align-items:center;gap:8px">
+                                <div class="msg-dot"></div>
+                                <div class="msg-from">Kunle Adeyemi &lt;kunle@gmail.com&gt;</div>
+                            </div>
+                            <div class="msg-time">Today 2:14 AM</div>
+                        </div>
+                        <div class="msg-subj" style="margin-top:6px">Enquiry about 4-bedroom duplex construction in
+                            Lekki — budget: ₦25M, timeline: 12 months</div>
+                        <div style="margin-top:8px;display:flex;gap:8px"><button class="btn-sm btn-red"
+                                onclick="alert('Reply: kunle@gmail.com')">Reply</button><button
+                                class="btn-sm btn-out">Mark Read</button></div>
+                    </div>
+                    <div class="msgrow" style="padding:16px 0">
+                        <div class="msg-top">
+                            <div style="display:flex;align-items:center;gap:8px">
+                                <div class="msg-dot"></div>
+                                <div class="msg-from">Mrs. Fatima Bello &lt;fatima.b@yahoo.com&gt;</div>
+                            </div>
+                            <div class="msg-time">Today 5:02 AM</div>
+                        </div>
+                        <div class="msg-subj" style="margin-top:6px">Request for architectural design and 3D render
+                            quote for a 5-bed duplex in Abuja</div>
+                        <div style="margin-top:8px;display:flex;gap:8px"><button class="btn-sm btn-red"
+                                onclick="alert('Reply: fatima.b@yahoo.com')">Reply</button><button
+                                class="btn-sm btn-out">Mark Read</button></div>
+                    </div>
+                    <div class="msgrow" style="padding:16px 0">
+                        <div class="msg-top">
+                            <div style="display:flex;align-items:center;gap:8px">
+                                <div class="msg-dot"></div>
+                                <div class="msg-from">Chukwudi Obi &lt;cobi@hotmail.com&gt;</div>
+                            </div>
+                            <div class="msg-time">Yesterday</div>
+                        </div>
+                        <div class="msg-subj" style="margin-top:6px">Renovation project — 3-storey building in Surulere,
+                            Lagos. Need full interior remodel quote</div>
+                        <div style="margin-top:8px;display:flex;gap:8px"><button class="btn-sm btn-red"
+                                onclick="alert('Reply: cobi@hotmail.com')">Reply</button><button
+                                class="btn-sm btn-out">Mark Read</button></div>
+                    </div>
+                    <div class="msgrow" style="padding:16px 0">
+                        <div class="msg-top">
+                            <div style="display:flex;align-items:center;gap:8px">
+                                <div class="msg-dot" style="background:var(--g)"></div>
+                                <div class="msg-from">Tunde Fashola &lt;tfashola@corp.ng&gt;</div>
+                            </div>
+                            <div class="msg-time">2 days ago</div>
+                        </div>
+                        <div class="msg-subj" style="margin-top:6px">Property management services enquiry for 20-unit
+                            apartment block in Ikeja GRA</div>
+                        <div style="margin-top:8px;display:flex;gap:8px"><button class="btn-sm btn-red"
+                                onclick="alert('Reply: tfashola@corp.ng')">Reply</button><button
+                                class="btn-sm btn-out">Archived</button></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── TEAM ── -->
+            <div class="sec" id="sec-team">
+                <div class="pg-hd">
+                    <div>
+                        <div class="pg-title">TEAM MEMBERS</div>
+                        <div class="pg-sub">7 core team members</div>
+                    </div><button class="btn-sm btn-red" onclick="window.open('team.html','_blank')">View Team Page
+                        →</button>
+                </div>
+                <div class="panel">
+                    <table class="team-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Qualifications</th>
+                                <th>Experience</th>
+                                <th>Page</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>01</td>
+                                <td><strong>Engr. Ijilusi Adeniyi O.</strong></td>
+                                <td>Managing Director / CEO</td>
+                                <td>HND, B.ENG, MNSE, COREN</td>
+                                <td>15 Years</td>
+                                <td><a href="team.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td><strong>Ilori Benson</strong></td>
+                                <td>Finance Director</td>
+                                <td>B.SC, MBA</td>
+                                <td>18 Years</td>
+                                <td><a href="team.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td><strong>Engr. Ekundayo Oluwafemi</strong></td>
+                                <td>Project Manager / Director</td>
+                                <td>HND, B.ENG, MNICE, COREN</td>
+                                <td>15 Years</td>
+                                <td><a href="team.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td><strong>Adedotun Ibironke</strong></td>
+                                <td>Project Architect / Designer</td>
+                                <td>B.TECH, M.TECH ARC</td>
+                                <td>10 Years</td>
+                                <td><a href="team.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>05</td>
+                                <td><strong>Adeola Aregbesola</strong></td>
+                                <td>Admin Manager / Social Media</td>
+                                <td>B.SC</td>
+                                <td>3 Years</td>
+                                <td><a href="team.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>06</td>
+                                <td><strong>Olasoji Dare Samuel</strong></td>
+                                <td>Site Engineer</td>
+                                <td>HND</td>
+                                <td>7 Years</td>
+                                <td><a href="team.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>07</td>
+                                <td><strong>Ige Damilola Blessing</strong></td>
+                                <td>Quantity Surveyor</td>
+                                <td>HND</td>
+                                <td>5 Years</td>
+                                <td><a href="team.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ── SERVICES ── -->
+            <div class="sec" id="sec-services">
+                <div class="pg-hd">
+                    <div>
+                        <div class="pg-title">SERVICES</div>
+                        <div class="pg-sub">6 active service categories</div>
+                    </div><button class="btn-sm btn-red" onclick="window.open('services.html','_blank')">View Services
+                        Page →</button>
+                </div>
+                <div class="stats4" style="margin-bottom:20px">
+                    <div class="scard">
+                        <div class="sc-label">Building Construction</div>
+                        <div class="sc-val" style="font-size:28px">12</div>
+                        <div class="sc-change">Projects delivered</div>
+                    </div>
+                    <div class="scard">
+                        <div class="sc-label">Architectural Design</div>
+                        <div class="sc-val" style="font-size:28px">8</div>
+                        <div class="sc-change">Designs completed</div>
+                    </div>
+                    <div class="scard">
+                        <div class="sc-label">Renovation Projects</div>
+                        <div class="sc-val" style="font-size:28px">5</div>
+                        <div class="sc-change">Properties renovated</div>
+                    </div>
+                    <div class="scard">
+                        <div class="sc-label">Project Management</div>
+                        <div class="sc-val" style="font-size:28px">25+</div>
+                        <div class="sc-change">Projects managed</div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <table class="team-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Service</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>01</td>
+                                <td><strong>Building Construction</strong></td>
+                                <td>Full-cycle residential, commercial & industrial construction</td>
+                                <td><span class="tpill">Active</span></td>
+                                <td><a href="services.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>02</td>
+                                <td><strong>Architectural Design</strong></td>
+                                <td>Creative concepts, 2D plans and 3D renders</td>
+                                <td><span class="tpill">Active</span></td>
+                                <td><a href="services.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>03</td>
+                                <td><strong>Project Management</strong></td>
+                                <td>End-to-end project oversight from groundbreaking to handover</td>
+                                <td><span class="tpill">Active</span></td>
+                                <td><a href="services.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>04</td>
+                                <td><strong>Renovation & Remodeling</strong></td>
+                                <td>Transforming existing structures into modern spaces</td>
+                                <td><span class="tpill">Active</span></td>
+                                <td><a href="services.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>05</td>
+                                <td><strong>Civil/Structural Design</strong></td>
+                                <td>Structural engineering using AutoCAD, Straadpro, Orion</td>
+                                <td><span class="tpill">Active</span></td>
+                                <td><a href="services.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                            <tr>
+                                <td>06</td>
+                                <td><strong>Property Management</strong></td>
+                                <td>Long-term maintenance and asset management</td>
+                                <td><span class="tpill">Active</span></td>
+                                <td><a href="services.html" target="_blank" style="color:var(--red)">View →</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Date
+        document.getElementById('tdate').textContent = new Date().toLocaleDateString('en-NG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Section switching
+        function show(name, btn) {
+            document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+            document.getElementById('sec-' + name).classList.add('on');
+            if (btn) { document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('on')); btn.classList.add('on'); }
+        }
+
+        // Projects table data
+        var allProjects = [
+            { n: 1, name: 'Residential Development', loc: 'Epe, Lagos State', s: 'done' },
+            { n: 2, name: 'House Remodeling Works', loc: 'Akute, Ogun State', s: 'done' },
+            { n: 3, name: 'Renovation Works', loc: 'Ikeja GRA, Lagos State', s: 'done' },
+            { n: 4, name: 'Residential Development', loc: 'Mowe, Ogun State', s: 'done' },
+            { n: 5, name: 'The Refiners Place Ministries', loc: 'Tinubu St, Alapere, Lagos', s: 'done' },
+            { n: 6, name: 'Hotel Development', loc: 'Abiola Way, Abeokuta, Ogun State', s: 'done' },
+            { n: 7, name: '6-Bedroom Duplex', loc: 'Osoba Presidential Hilltop, Ogun', s: 'done' },
+            { n: 8, name: '14 Units 2-Bedroom Apartments', loc: 'Ibese, Ikorodu Lagos', s: 'done' },
+            { n: 9, name: '4-Bed Duplex + 2-Bed Apartments', loc: 'Agboyi, Lagos State', s: 'done' },
+            { n: 10, name: '4-Bedroom Duplex', loc: 'Alapere Ketu, Lagos State', s: 'done' },
+            { n: 11, name: 'Renovation – Refiners Place', loc: 'Tinubu St, Alapere, Lagos', s: 'done' },
+            { n: 12, name: 'Design & Build 4-Bed Duplex', loc: 'Bakare, Ketu Alapere, Lagos', s: 'done' },
+            { n: 13, name: '9 Mini Flats + 5 Units 2-Bed', loc: 'Deji Owuro, Alapere, Lagos', s: 'done' },
+            { n: 14, name: '8 Units Mini Flat Apartments', loc: 'Oshogun, Ketu Alapere, Lagos', s: 'done' },
+            { n: 15, name: 'Remodeling 4-Bed Duplex', loc: 'Ojodu Berger, Lagos', s: 'done' },
+            { n: 16, name: '3-Bedroom Duplex', loc: 'Oshogun, Alapere, Lagos', s: 'done' },
+            { n: 17, name: '1500KVA Transformer Plinth ADC', loc: 'Eko Atlantic City, V.I. Lagos', s: 'done' },
+            { n: 18, name: '4+4 Mixed Apartment Units', loc: 'Mafowoku Street, Alapere Ketu', s: 'done' },
+            { n: 19, name: '4-Bed Duplex + Office Space', loc: 'Mafowoku Street, Alapere Ketu', s: 'done' },
+            { n: 20, name: '6-Bedroom Duplex', loc: 'Ibese, Ikorodu, Lagos', s: 'wip' },
+            { n: 21, name: '5 Units 2-Bedroom Apartments', loc: 'Alhaja Abass St, Ogudu, Lagos', s: 'wip' },
+            { n: 22, name: '8+4 Mixed Apartment Units', loc: 'Ladejobi St, Alapere-Ketu, Lagos', s: 'wip' },
+            { n: 23, name: '28-Unit Mixed Apartment Dev.', loc: 'Ibese, Ikorodu, Lagos State', s: 'wip' },
+            { n: 24, name: '7 Units 5+4-Bed Duplexes', loc: 'Alaka Estate, Surulere, Lagos', s: 'wip' },
+            { n: 25, name: '3 Units 4-Bedroom Duplexes', loc: 'Doyin Omololu St, Alapere-Ketu', s: 'wip' },
+        ];
+        function renderProjects(data) {
+            var tb = document.getElementById('proj-tbody');
+            tb.innerHTML = data.map(function (p) { return '<tr><td style="font-family:monospace;color:#333">' + String(p.n).padStart(2, '0') + '</td><td><strong>' + p.name + '</strong></td><td style="color:#333">' + p.loc + '</td><td><span class="prow-status ' + p.s + '">' + (p.s === 'done' ? '● Completed' : '● Ongoing') + '</span></td></tr>'; }).join('');
+        }
+        renderProjects(allProjects);
+        function filterProjAdmin(f) {
+            show('projects', null);
+            renderProjects(f === 'all' ? allProjects : allProjects.filter(function (p) { return p.s === f; }));
+        }
+        function filterProj(f) { filterProjAdmin(f) }
+
+        // Progress bar animation on load
+        setTimeout(function () { document.querySelectorAll('.prog-fill').forEach(function (el) { el.style.width = el.style.width; }); }, 100);
+    </script>
+</body>
+
+</html>

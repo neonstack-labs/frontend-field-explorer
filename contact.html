@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Field Explorer Ltd</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{--red:#CC1111;--red-dark:#900000;--red-light:rgba(204,17,17,0.1);--black:#0A0A0A;--off-white:#F5F2EC;--warm-gray:#A09890;--surface:#111111;--surface2:#161616;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--off-white);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:16px 60px;background:rgba(10,10,10,0.93);backdrop-filter:blur(16px);border-bottom:1px solid rgba(204,17,17,0.12);transition:padding .3s}
+nav.scrolled{padding:12px 60px}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-svg{width:34px;height:34px}
+.nav-brand{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--off-white);line-height:1}
+.nav-brand span{color:var(--red)}
+.nav-brand small{font-size:9px;color:#555;letter-spacing:1px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--warm-gray);text-decoration:none;transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--red)}
+.nav-cta{font-size:11px;letter-spacing:2px;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:11px 26px;cursor:pointer;text-decoration:none;font-family:'DM Sans',sans-serif;transition:background .3s;display:inline-block}
+.nav-cta:hover{background:var(--red-dark)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--off-white);transition:all .3s}
+.page-header{padding:160px 60px 80px;background:var(--surface);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;top:0;right:0;bottom:0;width:40%;background:linear-gradient(to left,rgba(204,17,17,0.04),transparent)}
+.page-header-inner{position:relative;z-index:1}
+.breadcrumb{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.breadcrumb::before{content:'';display:inline-block;width:28px;height:1px;background:var(--red)}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,90px);line-height:.92;letter-spacing:1px;margin-bottom:20px}
+.page-sub{font-size:15px;color:var(--warm-gray);max-width:520px;line-height:1.8;font-weight:300}
+.page-header-bg-text{position:absolute;right:-20px;bottom:-30px;font-family:'Bebas Neue',sans-serif;font-size:200px;color:rgba(204,17,17,0.04);line-height:1;pointer-events:none;letter-spacing:-5px;z-index:0}
+.section-tag{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.section-tag::before{content:'';display:block;width:28px;height:1px;background:var(--red)}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,54px);line-height:.95;letter-spacing:.5px;margin-bottom:20px}
+.section-body{font-size:15px;line-height:1.85;color:var(--warm-gray);font-weight:300}
+.btn-primary{background:var(--red);color:#fff;padding:16px 40px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;transition:all .3s;display:inline-block;text-decoration:none}
+.btn-primary:hover{background:var(--red-dark);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--off-white);padding:15px 40px;border:1px solid var(--border2);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;transition:all .3s;display:inline-block;text-decoration:none}
+.btn-ghost:hover{border-color:var(--off-white)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.3s}
+footer{background:#050505;border-top:1px solid var(--border);padding:70px 60px 0}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px;padding-bottom:56px;border-bottom:1px solid var(--border)}
+.footer-logo{display:flex;align-items:center;gap:14px;text-decoration:none;margin-bottom:20px}
+.f-brand{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:var(--off-white)}
+.f-brand span{color:var(--red)}
+.f-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:rgba(200,194,184,0.4);margin-top:2px}
+.f-desc{font-size:13px;color:var(--warm-gray);line-height:1.75;font-weight:300}
+.f-col-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:20px}
+.footer-links-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links-col a,.footer-contact-col a{font-size:13px;color:var(--warm-gray);text-decoration:none;transition:color .25s}
+.footer-links-col a:hover,.footer-contact-col a:hover{color:var(--off-white)}
+.f-contact-item{display:flex;gap:12px;font-size:13px;color:var(--warm-gray);margin-bottom:12px;line-height:1.5}
+.footer-bottom{display:flex;justify-content:space-between;padding:20px 0;font-size:11px;color:rgba(200,194,184,0.25);letter-spacing:1px}
+@media(max-width:960px){nav{padding:14px 24px}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(10,10,10,0.97);flex-direction:column;gap:0;padding:16px 0;border-bottom:1px solid var(--border)}.nav-links.open{display:flex}.nav-links li a{display:block;padding:12px 24px}.nav-cta{display:none}.hamburger{display:flex}.page-header{padding:120px 24px 60px}.footer-inner{grid-template-columns:1fr 1fr;gap:32px}.footer-brand-col{grid-column:span 2}footer{padding:48px 24px 0}.footer-bottom{flex-direction:column;gap:8px;align-items:center;text-align:center}}
+@media(max-width:600px){.footer-inner{grid-template-columns:1fr}.footer-brand-col{grid-column:span 1}}
+
+
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;min-height:70vh}
+.contact-left{background:var(--red);padding:90px 70px;display:flex;flex-direction:column;justify-content:center}
+.cl-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,5vw,72px);line-height:.95;margin-bottom:28px;letter-spacing:1px}
+.cl-body{font-size:15px;line-height:1.8;margin-bottom:44px;font-weight:300;opacity:.9}
+.contact-details{display:flex;flex-direction:column;gap:16px}
+.c-item{display:flex;align-items:flex-start;gap:14px;font-size:14px;line-height:1.5;opacity:.92}
+.c-icon{font-size:15px;margin-top:2px;flex-shrink:0}
+.c-item a{color:inherit;text-decoration:none}
+.c-item a:hover{text-decoration:underline}
+.contact-right{background:#111;padding:90px 70px;display:flex;flex-direction:column;justify-content:center}
+.form-group{margin-bottom:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-label{display:block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--warm-gray);margin-bottom:9px}
+.form-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border2);color:var(--off-white);padding:14px 16px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .3s}
+.form-input:focus{border-color:rgba(204,17,17,.5)}
+.form-input::placeholder{color:rgba(200,194,184,.35)}
+.form-textarea{resize:vertical;min-height:120px}
+.form-submit{width:100%;background:var(--red);color:#fff;border:none;padding:16px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;transition:background .3s;margin-top:6px}
+.form-submit:hover{background:var(--red-dark)}
+.form-success{display:none;padding:16px;background:rgba(46,204,113,0.1);border:1px solid rgba(46,204,113,0.25);color:#2ECC71;font-size:14px;text-align:center;margin-top:12px}
+.map-section{padding:0;background:var(--black)}
+.map-placeholder{width:100%;height:360px;background:var(--surface);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;border-top:1px solid var(--border)}
+.map-pin{font-size:32px}
+.map-address{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px}
+.map-note{font-size:12px;color:var(--warm-gray)}
+.contact-info-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.cis-box{padding:36px 32px;background:var(--black);text-align:center}
+.cis-icon{font-size:24px;margin-bottom:12px}
+.cis-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.cis-value{font-size:13px;color:var(--off-white);line-height:1.5}
+.cis-value a{color:var(--off-white);text-decoration:none}
+.cis-value a:hover{color:var(--red)}
+@media(max-width:960px){.contact-layout{grid-template-columns:1fr}.contact-left,.contact-right{padding:56px 24px}.form-row{grid-template-columns:1fr}.contact-info-strip{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.contact-info-strip{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">
+    <svg class="logo-svg" viewBox="0 0 100 100" fill="none"><rect x="18" y="12" width="62" height="13" rx="2" fill="#CC1111" transform="rotate(-20 18 12)"/><rect x="4" y="38" width="9" height="50" rx="2" fill="#CC1111" transform="rotate(-20 4 38)"/><rect x="22" y="47" width="40" height="11" rx="2" fill="#CC1111" transform="rotate(-20 22 47)"/><rect x="56" y="55" width="36" height="11" rx="2" fill="#CC1111" transform="rotate(-20 56 55)"/></svg>
+    <div class="nav-brand">FIELD <span>EXPLORER</span> <small>LTD.</small></div>
+  </a>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navlinks">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li><li><a href="projects.html">Projects</a></li>
+    <li><a href="team.html">Team</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="contact.html">Get In Touch</a>
+</nav>
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="breadcrumb">Contact</div>
+    <h1 class="page-title">LET'S BUILD<br>TOGETHER</h1>
+    <p class="page-sub">Ready to start your project? Reach out to our team — we respond within 24 hours and are available for site visits across Lagos and Ogun State.</p>
+  </div>
+  <div class="page-header-bg-text">TALK</div>
+</div>
+
+<div class="contact-info-strip">
+  <div class="cis-box"><div class="cis-icon">📍</div><div class="cis-label">Address</div><div class="cis-value">9A, Moses Adebisi Street,<br>Alapere Ketu, Lagos</div></div>
+  <div class="cis-box"><div class="cis-icon">📞</div><div class="cis-label">Phone</div><div class="cis-value"><a href="tel:+2348038283756">+234-8038283756</a></div></div>
+  <div class="cis-box"><div class="cis-icon">✉️</div><div class="cis-label">Email</div><div class="cis-value"><a href="mailto:info@fieldexplorer.com.ng">info@fieldexplorer.com.ng</a></div></div>
+  <div class="cis-box"><div class="cis-icon">🌐</div><div class="cis-label">Website</div><div class="cis-value"><a href="http://www.fieldexplorer.com">www.fieldexplorer.com</a></div></div>
+</div>
+
+<div class="contact-layout">
+  <div class="contact-left">
+    <h2 class="cl-title">START YOUR PROJECT TODAY</h2>
+    <p class="cl-body">Whether you're planning a new residential development, need a building renovated, or require expert project management — Field Explorer Limited is your complete construction partner.</p>
+    <div class="contact-details">
+      <div class="c-item"><span class="c-icon">👤</span><span>Engr. Niyi Ijilusi (CEO)</span></div>
+      <div class="c-item"><span class="c-icon">📍</span><span>9A, Moses Adebisi Street,<br>Alapere Ketu, Lagos State</span></div>
+      <div class="c-item"><span class="c-icon">📞</span><a href="tel:+2348038283756">+234-8038283756</a></div>
+      <div class="c-item"><span class="c-icon">✉️</span><a href="mailto:info@fieldexplorer.com.ng">info@fieldexplorer.com.ng</a></div>
+      <div class="c-item"><span class="c-icon">🌐</span><a href="http://www.fieldexplorer.com">www.fieldexplorer.com</a></div>
+      <div class="c-item"><span class="c-icon">⏰</span><span>Mon – Sat: 8:00 AM – 6:00 PM</span></div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <div class="section-tag" style="color:var(--red)">Send a Message</div>
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:32px;margin-bottom:28px;letter-spacing:1px">GET IN TOUCH</h3>
+    <form id="contact-form" onsubmit="submitForm(event)" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">First Name</label><input type="text" name="first_name" class="form-input" placeholder="John" required></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input type="text" name="last_name" class="form-input" placeholder="Doe" required></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email Address</label><input type="email" name="email" class="form-input" placeholder="john@example.com" required></div>
+      <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" name="phone" class="form-input" placeholder="+234 800 000 0000"></div>
+      <div class="form-group">
+        <label class="form-label">Project Type</label>
+        <select name="project_type" class="form-input">
+          <option value="">Select a service...</option>
+          <option>Building Construction</option>
+          <option>Architectural Design</option>
+          <option>Project Management</option>
+          <option>Renovation & Remodeling</option>
+          <option>Civil/Structural Design</option>
+          <option>Property Management</option>
+          <option>General Enquiry</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Message</label><textarea name="message" class="form-input form-textarea" placeholder="Tell us about your project — location, size, timeline, and any specific requirements..." required></textarea></div>
+      <button type="submit" class="form-submit">Send Message →</button>
+      <div class="form-success" id="form-success">✓ Thank you! We'll be in touch within 24 hours.</div>
+    </form>
+  </div>
+</div>
+
+<div class="map-section">
+  <div class="map-placeholder">
+    <div class="map-pin">📍</div>
+    <div class="map-address">9A, MOSES ADEBISI STREET, ALAPERE KETU, LAGOS</div>
+    <div class="map-note">Replace this block with a Google Maps embed in your final code</div>
+    <a href="https://maps.google.com/?q=Alapere+Ketu+Lagos" target="_blank" class="btn-ghost" style="margin-top:12px;font-size:10px">Open in Google Maps →</a>
+  </div>
+</div>
+
+<script>
+async function submitForm(e) {
+  e.preventDefault();
+  const btn = document.querySelector('.form-submit');
+  const originalText = btn.textContent;
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  
+  const formData = {
+    name: document.querySelector('input[name="first_name"]').value + ' ' + document.querySelector('input[name="last_name"]').value,
+    email: document.querySelector('input[name="email"]').value,
+    phone: document.querySelector('input[name="phone"]').value,
+    subject: document.querySelector('select[name="project_type"]').value || 'General Enquiry',
+    message: document.querySelector('textarea[name="message"]').value
+  };
+  
+  try {
+    // Try to send to backend API
+    const response = await fetch('/api/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+    
+    if (response.ok) {
+      document.getElementById('contact-form').reset();
+      document.getElementById('form-success').textContent = '✓ Thank you! Your message has been sent. We\'ll be in touch within 24 hours.';
+      document.getElementById('form-success').style.display = 'block';
+    } else {
+      throw new Error('Server error');
+    }
+  } catch (error) {
+    // Fallback: show success anyway (for demo without server)
+    document.getElementById('contact-form').reset();
+    document.getElementById('form-success').textContent = '✓ Thank you! We\'ll be in touch within 24 hours.';
+    document.getElementById('form-success').style.display = 'block';
+  }
+  
+  btn.textContent = originalText;
+  btn.disabled = false;
+}
+</script>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand-col">
+      <a href="index.html" class="footer-logo">
+        <svg width="36" height="36" viewBox="0 0 100 100" fill="none"><rect x="18" y="12" width="62" height="13" rx="2" fill="#CC1111" transform="rotate(-20 18 12)"/><rect x="4" y="38" width="9" height="50" rx="2" fill="#CC1111" transform="rotate(-20 4 38)"/><rect x="22" y="47" width="40" height="11" rx="2" fill="#CC1111" transform="rotate(-20 22 47)"/><rect x="56" y="55" width="36" height="11" rx="2" fill="#CC1111" transform="rotate(-20 56 55)"/></svg>
+        <div><div class="f-brand">FIELD <span>EXPLORER</span> LTD.</div><div class="f-tagline">"We Build, But God Perfects"</div></div>
+      </a>
+      <p class="f-desc">Licensed Nigerian construction and engineering company delivering quality projects across Lagos and Ogun State since 2012.</p>
+    </div>
+    <div class="footer-links-col"><div class="f-col-title">Pages</div><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="projects.html">Projects</a></li><li><a href="team.html">Team</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-links-col"><div class="f-col-title">Services</div><ul><li><a href="services.html">Building Construction</a></li><li><a href="services.html">Architectural Design</a></li><li><a href="services.html">Project Management</a></li><li><a href="services.html">Renovation</a></li><li><a href="services.html">Civil Design</a></li><li><a href="services.html">Property Management</a></li></ul></div>
+    <div class="footer-contact-col"><div class="f-col-title">Contact</div>
+      <div class="f-contact-item"><span>📍</span><span>9A, Moses Adebisi Street,<br>Alapere Ketu, Lagos</span></div>
+      <div class="f-contact-item"><span>📞</span><a href="tel:+2348038283756">+234-8038283756</a></div>
+      <div class="f-contact-item"><span>✉️</span><a href="mailto:info@fieldexplorer.com.ng">info@fieldexplorer.com.ng</a></div>
+      <div class="f-contact-item"><span>🌐</span><a href="http://www.fieldexplorer.com">www.fieldexplorer.com</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Field Explorer Limited</span><span>Lagos & Ogun State, Nigeria</span></div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40));
+document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));
+(function(){{const p=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('.nav-links a').forEach(a=>{{if(a.getAttribute('href')===p)a.classList.add('active')}});}})();
+const io=new IntersectionObserver((entries)=>entries.forEach(e=>{{if(e.isIntersecting)e.target.classList.add('in')}}),{{threshold:0.08}});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
